@@ -36,7 +36,7 @@ def condition_number(S, lambda_diag=1e-6, return_eigvals=False):
     kappa = torch.linalg.eigvalsh(S)
 
     sigma_max = torch.max(kappa)
-    sigma_min = torch.min(kappa[kappa > lambda_diag])
+    sigma_min = torch.min(kappa)  # FIX: no filter
 
     if return_eigvals:
         return sigma_min, sigma_max, torch.log(sigma_max) - torch.log(sigma_min)

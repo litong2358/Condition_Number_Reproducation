@@ -279,7 +279,7 @@ class DataModule(pl.LightningDataModule):
                 datasets.Country211(root=self.d2_path, split="train", download=True)
             if self.d2_name == "cars":
                 # Assumes the Stanford Cars dataset is manually downloaded
-                if not os.path.exists(os.path.join(self.d2_path, "cars_train")):
+                if not os.path.exists(os.path.join(self.d2_path, "train")):
                     raise FileNotFoundError("Stanford Cars dataset is not found. Please download it first.")
         elif self.dataset_name == "tabular":
             if not self.d1_path or not self.d2_path:

@@ -17,8 +17,8 @@ training:
 data:
   dataset_name: imagenet
   batch_size: 64              # Batch size for training and validation
-  d1_path: data/imagenet
-  d2_path: data/cars
+  d1_path: /hpcstor6/scratch01/t/tong.li003/datasets/imagenet_1k
+  d2_path: /hpcstor6/scratch01/t/tong.li003/datasets/cars
   d2_name: cars
   
 model:
