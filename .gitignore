@@ -1,17 +1,12 @@
-# 大文件 / 数据 / 结果
 results/
 data/
 wandb/
 logs/
 *.ckpt
 *.pth
-
-# 临时 / 缓存
 __pycache__/
 *.pyc
 *.bak
 *.short_version
 *.before_64
-
-# 系统文件
 .DS_Store
