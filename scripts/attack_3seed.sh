@@ -21,7 +21,7 @@ for SEED in 1 2 3; do
     echo "##### SEED $SEED at $(date)"
     echo "############################################################"
     
-    python -u attack_rir.py \
+    python -u attacks/attack_rir.py \
         --config configs/resnet18_cars.yaml \
         --ckpt results/imagenet_cars/classification/pt_imagenet/${SEED}/checkpoints/last.ckpt \
         --output_dir results/attack_3seed_seed${SEED}/ \

@@ -11,7 +11,7 @@ import copy
 import argparse
 import torch
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 from utils.option import load_yaml
 from utils.log import log_and_save_avg_condition_numbers

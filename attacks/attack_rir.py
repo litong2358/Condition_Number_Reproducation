@@ -11,7 +11,7 @@ PGD maximizes:  -|log_kappa(theta_I) - log_kappa(theta_0)|
 import os, sys, argparse, statistics
 import torch
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 from utils.option import load_yaml
 from utils.loss import condition_number

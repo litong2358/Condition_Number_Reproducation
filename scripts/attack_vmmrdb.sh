@@ -18,7 +18,7 @@ echo "===== VMMRdb attack at $(date) ====="
 nvidia-smi
 echo ""
 
-python attack_vmmrdb.py \
+python attacks/attack_vmmrdb.py \
     --config configs/resnet18_cars.yaml \
     --ckpt results/imagenet_cars/classification/pt_imagenet/1/checkpoints/last.ckpt \
     --vmmrdb_path /hpcstor6/scratch01/t/tong.li003/datasets/vmmrdb \
