@@ -8,6 +8,7 @@ from utils.option import load_yaml, save_config, create_experiment_dir, set_seed
 from utils.log import save_loss_plot, log_and_save_condition_numbers, log_and_save_avg_condition_numbers
 from utils.evaluate_imgnet import evaluate_model
 from models.model import Model
+from models.feature_extractor import PretrainedFeatureExtractor
 from dataset import DataModule
 
 torch.set_float32_matmul_precision('medium')
@@ -98,8 +99,18 @@ if __name__ == "__main__":
     if 'imagenet' in data_params['dataset_name']:
         k = 100
         n = 20
+
+        # RIR_{theta_0} (Eq. 17) is measured relative to the *off-the-shelf*
+        # initialization theta_0, so the reference extractor must be a freshly
+        # loaded pretrained backbone -- not the immunized one.
+        theta_0 = PretrainedFeatureExtractor(
+            dataset="imagenet_vit" if "vit" in model_params['feature_extractor_type'] else "imagenet"
+        ).to(device, dtype=torch.double)
+        theta_0.eval()
+        model.feature_extractor.eval()
+
         with torch.no_grad():
-            log_and_save_avg_condition_numbers(data_module, model.feature_extractor, model.feature_extractor, k=k, n=n, output_dir=experiment_dir, device=device, train=True)
+            log_and_save_avg_condition_numbers(data_module, theta_0, model.feature_extractor, k=k, n=n, output_dir=experiment_dir, device=device, train=True)
             test_acc = evaluate_model(model, data_params['d1_path'])
             with open(os.path.join(experiment_dir, "test_acc.txt"), "a") as f:
                 f.write(f"Test Accuracy: {test_acc:.2f}%\n")

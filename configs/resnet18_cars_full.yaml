@@ -1,0 +1,34 @@
+# identical to resnet18_cars.yaml except d2_path, which points at the full
+# 16,185-image Stanford Cars set described in the paper (App. C.1) instead of a
+# 6,598-image subset. All hyper-parameters match Tab. 4 of the paper.
+training:
+  max_epochs: 3
+  gpus: 1
+  precision: 32
+  log_every_n_steps: 1
+  logger:
+    project_name: "immu_cond_num"
+  callbacks:
+    checkpoint:
+      monitor: "train_loss"   # Metric to monitor for saving checkpoints
+      mode: "min"             # Save best model with minimum train_loss
+      save_top_k: 1           # Number of best models to save
+    early_stopping:
+      monitor: "train_loss"   # Metric to monitor for stopping
+      mode: "min"             # Stop when train_loss does not improve
+      patience: 3             # Number of epochs to wait before stopping
+data:
+  dataset_name: imagenet
+  batch_size: 64              # Batch size for training and validation
+  d1_path: data/imagenet
+  d2_path: data/cars_full
+  d2_name: cars_full        # separates results dir from the 6,598-image run
+
+model:
+  task: "classification"          # Task: "classification" or "regression"
+  feature_extractor_type: "pt_imagenet"
+  feat_size: 512                   # Feature size of resnet
+  lambda_kappa: 1               # Regularization coefficient
+  lambda_r1: 5e-5         # Conditioning regularization coefficient
+  lambda_r2: 2e6
+  lr: 1e-5
