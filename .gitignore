@@ -1,4 +1,5 @@
 wandb/
-results/data/
+results/
+data/
 logs/
 __pycache__/
