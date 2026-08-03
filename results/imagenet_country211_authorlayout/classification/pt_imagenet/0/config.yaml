@@ -1,0 +1,30 @@
+data:
+  batch_size: 64
+  d1_path: data/imagenet
+  d2_name: country211_authorlayout
+  d2_path: data/country211_authorlayout
+  dataset_name: imagenet
+model:
+  feat_size: 512
+  feature_extractor_type: pt_imagenet
+  lambda_kappa: 1
+  lambda_r1: 1e-4
+  lambda_r2: 2e6
+  lr: 1e-5
+  task: classification
+training:
+  callbacks:
+    checkpoint:
+      mode: min
+      monitor: train_loss
+      save_top_k: 1
+    early_stopping:
+      mode: min
+      monitor: train_loss
+      patience: 3
+  gpus: 1
+  log_every_n_steps: 1
+  logger:
+    project_name: immu_cond_num
+  max_epochs: 3
+  precision: 32
